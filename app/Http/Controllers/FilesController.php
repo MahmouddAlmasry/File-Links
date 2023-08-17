@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
 
 class FilesController extends Controller
 {
@@ -63,7 +64,13 @@ class FilesController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $file = File::findOrFail($id);
+
+        $invitation_link = URL::temporarySignedRoute('search_url', now()->addHours(24), [
+            'file' => $file->id,
+        'url' => $file->url]);
+
+        return view('dashboard.show', compact('file', 'invitation_link'));
     }
 
     /**
@@ -120,7 +127,6 @@ class FilesController extends Controller
      */
     public function destroy(string $id)
     {
-
         try {
             $file = File::findOrFail($id);
         } catch (Exception $e) {
@@ -156,8 +162,8 @@ class FilesController extends Controller
         $randomString = $this->generateRandomString(51);
 
         // Constructing the complete random link
-        $randomLink = $siteUrl . $randomString;
+        // $randomLink = $siteUrl . $randomString;
 
-        return $randomLink;
+        return $randomString;
     }
 }

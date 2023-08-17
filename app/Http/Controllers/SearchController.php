@@ -17,7 +17,7 @@ class SearchController extends Controller
             'code' => 'required',
         ]);
 
-        $file = File::where('code', '=', $request->code)->first();
+        $file = File::withoutGlobalScope('user')->where('code', '=', $request->code)->first();
         if($file == null) {
             $error = 'Enter Correct Code!';
             return view('main', compact('error'));
@@ -27,10 +27,9 @@ class SearchController extends Controller
 
     public function search_url($url)
     {
-        $url = '/https://'.$url;
-        $file = File::where('url', '=', $url)->first();
+        $file = File::withoutGlobalScope('user')->where('url', '=', $url)->first();
         if($file == null) {
-            $error = 'Enter Correct Url!';
+            $error = 'The File Not Found!';
             return view('main', compact('error'));
         }
         return view('main', compact('file'));
@@ -45,6 +44,5 @@ class SearchController extends Controller
             // Assuming your files are stored in the public disk
             $filePath = public_path('storage'."\\files\\".$file->code.'.'.$file->extinsion);
             return response()->download($filePath);
-
     }
 }

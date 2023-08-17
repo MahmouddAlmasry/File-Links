@@ -20,7 +20,7 @@
 <body>
 
 <div id="single-wrapper">
-	<form method="POST" action="{{ route('register') }}" class="frm-single">
+	<form method="POST" action="{{ route('login') }}" class="frm-single">
         @csrf
 		<div class="inside">
 			<div class="title"><strong>Ninja</strong>Admin</div>

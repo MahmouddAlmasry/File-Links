@@ -44,9 +44,7 @@
                             <th class="sorting" tabindex="0" aria-controls="example-edit" rowspan="1" colspan="1"
                                 aria-label="Start date: activate to sort column ascending" style="width: 30px;">extinsion
                             </th>
-                            <th class="sorting" tabindex="0" aria-controls="example-edit" rowspan="1" colspan="1"
-                                aria-label="Position: activate to sort column ascending" style="width: 254px;">URL</th>
-                            <th class="sorting" tabindex="0" aria-controls="example-edit" rowspan="1" colspan="2"
+                            <th class="sorting" tabindex="0" aria-controls="example-edit" rowspan="1" colspan="3"
                                 aria-label="Position: activate to sort column ascending" style="width: 50px;">Action</th>
                         </tr>
                     </thead>
@@ -55,8 +53,7 @@
                             <th rowspan="1" colspan="1">Name</th>
                             <th rowspan="1" colspan="1">Size</th>
                             <th rowspan="1" colspan="1">extinsion</th>
-                            <th rowspan="1" colspan="1">Url</th>
-                            <th rowspan="1" colspan="2">Action</th>
+                            <th rowspan="1" colspan="3">Action</th>
                         </tr>
                     </tfoot>
                     <tbody>
@@ -65,10 +62,13 @@
                                 <td class="sorting_1" tabindex="1">{{ $file->name }}</td>
                                 <td>{{ number_format($file->size / 1024 / 1024, 1) }} MB</td>
                                 <td tabindex="1">{{ $file->extinsion }}</td>
-                                <td tabindex="1">{{ $file->url }}</td>
                                 <td tabindex="1">
                                     <a href="{{ route('dashboard.edit', $file->id) }}"
                                         class="btn btn-warning btn-xs waves-effect waves-light">Edit</a>
+                                </td>
+                                <td tabindex="1">
+                                    <a href="{{ route('dashboard.show', $file->id) }}"
+                                        class="btn btn-success btn-xs waves-effect waves-light">Show</a>
                                 </td>
                                 <td tabindex="1">
                                     <form action="{{ route('dashboard.destroy', $file->id) }}" method="POST">
