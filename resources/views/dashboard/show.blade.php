@@ -9,6 +9,7 @@
                     <li>Extinsion: {{$file->extinsion}}</li>
                     <li>Size: {{ number_format($file->size / 1024 / 1024, 1) }} MB</li>
                     <li>Code: {{$file->code}}</li>
+                    <li>Download times: {{$file->downloaded_count}}</li>
                 </ul>
             </div>
             <div class="col-8">

@@ -3,46 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Models\File;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SearchController extends Controller
 {
-    public function main(){
+    public function main()
+    {
         return view('main');
     }
 
-
-    public function search_code(Request $request){
-        $request->validate([
-            'code' => 'required',
-        ]);
-
-        $file = File::withoutGlobalScope('user')->where('code', '=', $request->code)->first();
-        if($file == null) {
-            $error = 'Enter Correct Code!';
-            return view('main', compact('error'));
-        }
-        return view('main', compact('file'));
-    }
-
-    public function search_url($url)
+    public function search_url(Request $request, $url)
     {
         $file = File::withoutGlobalScope('user')->where('url', '=', $url)->first();
-        if($file == null) {
+        if ($file == null) {
             $error = 'The File Not Found!';
             return view('main', compact('error'));
         }
-        return view('main', compact('file'));
-    }
+        $filePath = public_path('storage' . "\\files\\" . $file->code . '.' . $file->extinsion);
 
-    public function download($code)
-    {
-            $file = File::where('code', '=', $code)->first();
-            if (!$file) {
-                abort(404);
-            }
-            // Assuming your files are stored in the public disk
-            $filePath = public_path('storage'."\\files\\".$file->code.'.'.$file->extinsion);
-            return response()->download($filePath);
+        event('downloadFile', [$request, $file]);
+
+        return response()->file($filePath);
     }
 }

@@ -43,9 +43,6 @@ Route::get('/', [SearchController::class, 'main'])->name('main');
         'destroy' => 'dashboard.destroy',
     ])->middleware(['auth', 'verified']);
 
-Route::get('/search', [SearchController::class, 'search_code'])
-    ->name('search_code');
-Route::get('/download/{code}', [SearchController::class, 'download'])->name('download');
 Route::get('/file/{url}', [SearchController::class, 'search_url'])
     ->name('search_url')->middleware('signed');
 

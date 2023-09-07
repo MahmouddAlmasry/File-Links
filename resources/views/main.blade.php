@@ -38,37 +38,16 @@
 
     <!-- Start Events -->
     <div class="events" id="events">
-        <div class="dots dots-up"></div>
-        <div class="dots dots-down"></div>
         <h2 class="main-title">File search </h2>
         <div class="container">
-            <img src="imgs/events.png" alt="" />
-            <div class="subscribe">
-                <form action="{{ route('search_code') }}" type="get">
-                    <input type="text" name="code" @class(['code', 'is-invalid' => $errors->has('code')]) placeholder="Enter The Code" />
-                    <input type="submit" value="Search" />
-                </form>
-            </div>
             <div class="show">
-                @error('code')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
                 @if ($error ?? '')
                     <div>{{$error}}</div>
                 @endif
-                @if ($file ?? '')
-                    <table>
-                        <tr>
-                            <td>{{$file->name}}</td>
-                            <td></td>
-                            <td><a href="{{route('download', $file->code)}}" class="download">Download</a></td>
-                        </tr>
-                    </table>
-                @endif
+
             </div>
         </div>
+
     </div>
 
     <script src="{{ asset('js/main.js') }}"></script>
